@@ -5,13 +5,14 @@ import matplotlib.pyplot as plt
 import os
 from pdf2image import convert_from_path
 from PIL import Image
-from PyPDF2 import PdfFileWriter, PdfFileReader
+from PyPDF2 import PdfWriter, PdfReader
 import re
 import tempfile
 # import tkinter as tk
 # from tkinter import Frame, Text, Label
 import torch
 import torchvision
+import sys
 
 from .cnn import get_model
 from .segment_boards import segment_boards
@@ -135,14 +136,14 @@ def run(file_path,
   yield 'Reading PDF ...'
   if not build_training_set:
     input_file = open(file_path, 'rb')
-    pdf_input = PdfFileReader(input_file, strict=False)
-    pdf_output = PdfFileWriter()
-    pdf_output.appendPagesFromReader(pdf_input)
+    pdf_input = PdfReader(input_file, strict=False)
+    pdf_output = PdfWriter()
+    pdf_output.append_pages_from_reader(pdf_input)
 
-    num_pages = pdf_output.getNumPages()
+    num_pages = len(pdf_output.pages)
     assert num_pages > 0
-    page1 = pdf_output.getPage(0)
-    _, _, pdf_w, pdf_h = page1.mediaBox
+    page1 = pdf_output.pages[0]
+    _, _, pdf_w, pdf_h = page1.mediabox
     pdf_w = pdf_w.as_numeric()
     pdf_h = pdf_h.as_numeric()
 
@@ -190,6 +191,7 @@ def run(file_path,
           _, predicted = torch.max(outputs.data, 1)
           
           fen_str  = get_fen_str(predicted)
+          print(fen_str)
 
           if not build_training_set:
             annotation1, annotation2 = create_annotation(xmax / page_im_w * pdf_w, (1 - ymin / page_im_h) * pdf_h, {

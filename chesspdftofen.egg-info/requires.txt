@@ -1,0 +1,7 @@
+importlib_resources
+matplotlib
+numpy
+opencv-python
+pdf2image
+PyPDF2
+pillow

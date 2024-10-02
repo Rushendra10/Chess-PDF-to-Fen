@@ -1,0 +1,17 @@
+LICENSE.txt
+README.md
+setup.py
+chesspdftofen/__init__.py
+chesspdftofen/cnn.py
+chesspdftofen/pdf_helper.py
+chesspdftofen/segment_boards.py
+chesspdftofen/timer.py
+chesspdftofen.egg-info/PKG-INFO
+chesspdftofen.egg-info/SOURCES.txt
+chesspdftofen.egg-info/dependency_links.txt
+chesspdftofen.egg-info/requires.txt
+chesspdftofen.egg-info/top_level.txt
+chesspdftofen/data/__init__.py
+chesspdftofen/data/model_exp_cbnn1_d0.5_0.4_bn_rc23400.pth
+chesspdftofen/data/model_exp_cbnn1_last7800.pth
+chesspdftofen/data/model_exp_cbnn1_last_bn7800.pth
